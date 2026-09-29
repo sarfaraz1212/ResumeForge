@@ -7,6 +7,10 @@ import ExperienceForm from "../builderOptions/ExperienceForm";
 import ProjectsForm from "../builderOptions/ProjectsForm";
 import EducationForm from "../builderOptions/EducationForm";
 import CertificationsForm from "../builderOptions/CertificationsForm";
+import LanguagesForm from "../builderOptions/LanguagesForm";
+import ReferencesForm from "../builderOptions/ReferencesForm";
+import VolunteerForm from "../builderOptions/VolunteerForm";
+import AwardsForm from "../builderOptions/AwardsForm";
 
 const BuilderOptions = () => {
 
@@ -64,6 +68,34 @@ const BuilderOptions = () => {
         "certifications" in sections &&
         <Accordion title="Certifications">
           <CertificationsForm allowedFields={sections.certifications.allowedFields}/>
+        </Accordion>
+      }
+
+      {
+        "languages" in sections &&
+        <Accordion title="Languages">
+          <LanguagesForm allowedFields={sections.languages.allowedFields}/>
+        </Accordion>
+      }
+
+      {
+        "references" in sections &&
+        <Accordion title="References">
+          <ReferencesForm allowedFields={sections.references.allowedFields}/>
+        </Accordion>
+      }
+
+      {
+        "volunteer" in sections &&
+        <Accordion title="Volunteer">
+          <VolunteerForm allowedFields={sections.volunteer.allowedFields}/>
+        </Accordion>
+      }
+
+      {
+        "awards" in sections &&
+        <Accordion title="Awards">
+          <AwardsForm allowedFields={sections.awards.allowedFields}/>
         </Accordion>
       }
     </div>

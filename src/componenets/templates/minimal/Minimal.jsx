@@ -4,6 +4,8 @@ import useExperienceStore from "../../../stores/experience"
 import useEducationStore from "../../../stores/education"
 import useAwardsStore from "../../../stores/awards"
 import useLanguagesStore from "../../../stores/languages"
+import useReferencesStore from "../../../stores/references"
+import useVolunteerStore from "../../../stores/volunteer"
 
 /* ----------------------------- atoms ----------------------------- */
 
@@ -121,31 +123,96 @@ const EducationSection = () => {
   )
 }
 
-const AdditionalInfoSection = () => {
+const LanguagesSection = () => {
   const { languages } = useLanguagesStore()
-  const { awards } = useAwardsStore()
-
-  const languageText = languages?.map((l) => l.name).filter(Boolean).join(", ")
-  const certificationText = awards?.map((a) => a.title).filter(Boolean).join(", ")
-
-  if (!languageText && !certificationText) return null
+  if (!languages || languages.length === 0) return null
 
   return (
     <section>
-      <SectionHeading title="Additional Information" />
+      <SectionHeading title="Languages" />
       <ul className="list-disc space-y-1 pl-5 text-gray-700">
-        {languageText && (
-          <li>
-            <span className="font-bold text-gray-900">Languages: </span>
-            {languageText}
+        {languages.map((language, index) => (
+          <li key={index}>
+            {language.name}
+            {language.level && (
+              <span className="text-gray-600"> — {language.level}</span>
+            )}
           </li>
-        )}
-        {certificationText && (
-          <li>
-            <span className="font-bold text-gray-900">Certifications: </span>
-            {certificationText}
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+const ReferencesSection = () => {
+  const { references } = useReferencesStore()
+  if (!references || references.length === 0) return null
+
+  return (
+    <section>
+      <SectionHeading title="References" />
+      <ul className="list-disc space-y-1 pl-5 text-gray-700">
+        {references.map((reference, index) => (
+          <li key={index}>
+            {reference.name}
+            {reference.role && (
+              <span className="text-gray-600"> — {reference.role}</span>
+            )}
+            {reference.phone && (
+              <span className="text-gray-600"> · {reference.phone}</span>
+            )}
+            {reference.email && (
+              <span className="text-gray-600"> · {reference.email}</span>
+            )}
           </li>
-        )}
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+const VolunteerSection = () => {
+  const { volunteers } = useVolunteerStore()
+  if (!volunteers || volunteers.length === 0) return null
+
+  return (
+    <section>
+      <SectionHeading title="Volunteer" />
+      {volunteers.map((volunteer, index) => (
+        <div key={index} className="mb-3">
+          <EntryHeader
+            title={`${volunteer.role}${volunteer.organization ? `, ${volunteer.organization}` : ""}`}
+            date={`${volunteer.startedAt} - ${volunteer.endedAt}`}
+          />
+          <div
+            className="mt-1 text-gray-700 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+            dangerouslySetInnerHTML={{ __html: volunteer.description || "" }}
+          />
+        </div>
+      ))}
+    </section>
+  )
+}
+
+const CertificationsSection = () => {
+  const { awards } = useAwardsStore()
+  if (!awards || awards.length === 0) return null
+
+  return (
+    <section>
+      <SectionHeading title="Certifications" />
+      <ul className="list-disc space-y-1 pl-5 text-gray-700">
+        {awards.map((award, index) => (
+          <li key={index}>
+            {award.title}
+            {award.awarder && (
+              <span className="text-gray-600"> — {award.awarder}</span>
+            )}
+            {award.date && (
+              <span className="text-gray-600"> · {award.date}</span>
+            )}
+          </li>
+        ))}
       </ul>
     </section>
   )
@@ -161,7 +228,10 @@ const Minimal = () => {
       <SkillsSection />
       <ExperienceSection />
       <EducationSection />
-      <AdditionalInfoSection />
+      <LanguagesSection />
+      <ReferencesSection />
+      <VolunteerSection />
+      <CertificationsSection />
     </div>
   )
 }

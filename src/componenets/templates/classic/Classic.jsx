@@ -6,6 +6,10 @@ import useAboutStore from "../../../stores/about"
 import useSkillsStore from "../../../stores/skills"
 import useExperienceStore from "../../../stores/experience"
 import useEducationStore from "../../../stores/education"
+import useLanguagesStore from "../../../stores/languages"
+import useReferencesStore from "../../../stores/references"
+import useVolunteerStore from "../../../stores/volunteer"
+import useAwardsStore from "../../../stores/awards"
 
 const ACCENT = "#1a1a1a"
 
@@ -138,6 +142,102 @@ const Education = () => {
   )
 }
 
+const Languages = () => {
+  const { languages } = useLanguagesStore()
+  if (!languages || languages.length === 0) return null
+  return (
+    <section>
+      <SectionHeading title="Languages" />
+      <ul className="list-disc space-y-1 pl-6">
+        {languages.map((language, index) => (
+          <li key={index}>
+            {language.name}
+            {language.level && (
+              <span className="text-gray-600"> — {language.level}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+const References = () => {
+  const { references } = useReferencesStore()
+  if (!references || references.length === 0) return null
+  return (
+    <section>
+      <SectionHeading title="References" />
+      <ul className="list-disc space-y-1 pl-6">
+        {references.map((reference, index) => (
+          <li key={index}>
+            {reference.name}
+            {reference.role && (
+              <span className="text-gray-600"> — {reference.role}</span>
+            )}
+            {reference.phone && (
+              <span className="text-gray-600"> · {reference.phone}</span>
+            )}
+            {reference.email && (
+              <span className="text-gray-600"> · {reference.email}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+const Volunteer = () => {
+  const { volunteers } = useVolunteerStore()
+  if (!volunteers || volunteers.length === 0) return null
+  return (
+    <section>
+      <SectionHeading title="Volunteer" />
+      {volunteers.map((volunteer, index) => (
+        <div key={index} className="mb-3">
+          <div className="flex items-baseline justify-between">
+            <h3 className="font-semibold text-gray-900">
+              {volunteer.role}
+              {volunteer.organization ? `, ${volunteer.organization}` : ""}
+            </h3>
+            <span className="text-[11px] text-gray-500">
+              {volunteer.startedAt} – {volunteer.endedAt}
+            </span>
+          </div>
+          <div
+            className="mt-1 text-gray-700 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+            dangerouslySetInnerHTML={{ __html: volunteer.description || "" }}
+          />
+        </div>
+      ))}
+    </section>
+  )
+}
+
+const Awards = () => {
+  const { awards } = useAwardsStore()
+  if (!awards || awards.length === 0) return null
+  return (
+    <section>
+      <SectionHeading title="Awards" />
+      <ul className="list-disc space-y-1 pl-6">
+        {awards.map((award, index) => (
+          <li key={index}>
+            {award.title}
+            {award.awarder && (
+              <span className="text-gray-600"> — {award.awarder}</span>
+            )}
+            {award.date && (
+              <span className="text-gray-600"> · {award.date}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
 /* ---------------------------- template ---------------------------- */
 
 const Classic = () => {
@@ -148,6 +248,10 @@ const Classic = () => {
       <Experience />
       <Education />
       <Skills />
+      <Languages />
+      <References />
+      <Volunteer />
+      <Awards />
     </div>
   )
 }

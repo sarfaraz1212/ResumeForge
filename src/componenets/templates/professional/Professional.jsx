@@ -5,6 +5,9 @@ import Experience from "./Experience";
 import Projects from "./Projects";
 import Education from "./Education";
 import Certifications from "./Certifications";
+import Languages from "./Languages";
+import References from "./References";
+import Volunteer from "./Volunteer";
 
 const Professional = () => {
   return (
@@ -16,6 +19,9 @@ const Professional = () => {
       <Projects />
       <Education />
       <Certifications />
+      <Languages />
+      <References />
+      <Volunteer />
     </div>
   );
 };

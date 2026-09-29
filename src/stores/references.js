@@ -4,10 +4,10 @@ import { persist } from 'zustand/middleware';
 const initialState = {
     references: [
         {
-            name: "Estelle Darcy",
-            role: "Wardiere Inc. / CTO",
-            phone: "123-456-7890",
-            email: "hello@reallygreatsite.com",
+            name: "Reference Name",
+            role: "Role",
+            phone: "",
+            email: "",
         },
     ],
 };
@@ -16,6 +16,19 @@ const useReferencesStore = create(
     persist(
         (set) => ({
             ...initialState,
+            setReferences: (references) => set({ references }),
+            addReference: (entry) =>
+                set((state) => ({ references: [...state.references, entry] })),
+            updateReference: (index, field, value) =>
+                set((state) => ({
+                    references: state.references.map((item, i) =>
+                        i === index ? { ...item, [field]: value } : item
+                    ),
+                })),
+            removeReference: (index) =>
+                set((state) => ({
+                    references: state.references.filter((_, i) => i !== index),
+                })),
             reset: () => set(initialState),
         }),
         { name: "rb-references" }

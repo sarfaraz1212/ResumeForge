@@ -3,6 +3,10 @@ import useAboutStore from "../../../stores/about"
 import useSkillsStore from "../../../stores/skills"
 import useExperienceStore from "../../../stores/experience"
 import useEducationStore from "../../../stores/education"
+import useLanguagesStore from "../../../stores/languages"
+import useReferencesStore from "../../../stores/references"
+import useVolunteerStore from "../../../stores/volunteer"
+import useAwardsStore from "../../../stores/awards"
 
 /* Source theme: SYSTEM_COLORS[0] — titleColor (#1890ff) drives subtitle color */
 const TITLE_COLOR = "#1890ff"
@@ -133,6 +137,85 @@ const SkillsSection = ({ title, list = [] }) => (
   </div>
 )
 
+const LanguagesSection = () => {
+  const { languages } = useLanguagesStore()
+  if (!languages || languages.length === 0) return null
+  return (
+    <div className="mb-3">
+      <SectionHeading title="Languages" />
+      {languages.map((language, index) => (
+        <div key={index} className="py-1">
+          <SectionTitle label={language.name} md />
+          {language.level && <SectionSubtitle label={language.level} />}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const ReferencesSection = () => {
+  const { references } = useReferencesStore()
+  if (!references || references.length === 0) return null
+  return (
+    <div className="mb-3">
+      <SectionHeading title="References" />
+      {references.map((reference, index) => (
+        <div key={index} className="py-1">
+          <SectionTitle label={reference.name} md />
+          {reference.role && <SectionSubtitle label={reference.role} />}
+          {(reference.phone || reference.email) && (
+            <p className="text-xs">
+              {[reference.phone, reference.email].filter(Boolean).join(" · ")}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const VolunteerSection = () => {
+  const { volunteers } = useVolunteerStore()
+  if (!volunteers || volunteers.length === 0) return null
+  return (
+    <div className="mb-3">
+      <SectionHeading title="Volunteer" />
+      {volunteers.map((volunteer, index) => (
+        <div key={index} className="py-2">
+          <SectionTitle label={volunteer.organization} />
+          <div className="flex items-center justify-between">
+            <SectionSubtitle label={volunteer.role} />
+            <p className="text-xs">
+              {volunteer.startedAt} - {volunteer.endedAt}
+            </p>
+          </div>
+          <div
+            className="mt-0.5 text-xs [&_ul]:list-disc [&_ul]:pl-4 [&_ol]:list-decimal [&_ol]:pl-4"
+            dangerouslySetInnerHTML={{ __html: volunteer.description || "" }}
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const AwardsSection = () => {
+  const { awards } = useAwardsStore()
+  if (!awards || awards.length === 0) return null
+  return (
+    <div className="mb-3">
+      <SectionHeading title="Awards" />
+      {awards.map((award, index) => (
+        <div key={index} className="py-1">
+          <SectionTitle label={award.title} md />
+          {award.awarder && <SectionSubtitle label={award.awarder} />}
+          {award.date && <p className="text-xs">{award.date}</p>}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 /* ---------------------------- template ---------------------------- */
 
 const Modern = () => {
@@ -147,6 +230,10 @@ const Modern = () => {
           <SummarySection />
           <WorkSection />
           <EducationSection />
+          <LanguagesSection />
+          <ReferencesSection />
+          <VolunteerSection />
+          <AwardsSection />
         </div>
         {/* Right region (40%) */}
         <div className="basis-[40%] p-3">

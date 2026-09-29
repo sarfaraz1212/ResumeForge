@@ -45,6 +45,37 @@ const BLUEPRINT = {
                 {name:"startedAt", label:"Started At", type:"text"},
                 {name:"endedAt", label:"Ended At", type:"text"},
             ]
+        },
+        languages:{
+            allowedFields:[
+                {name:"name", label:"Name", type:"text"},
+                {name:"level", label:"Level", type:"text"},
+            ]
+        },
+        references:{
+            allowedFields:[
+                {name:"name", label:"Name", type:"text"},
+                {name:"role", label:"Role", type:"text"},
+                {name:"phone", label:"Phone", type:"tel"},
+                {name:"email", label:"Email", type:"email"},
+            ]
+        },
+        volunteer:{
+            allowedFields:[
+                {name:"organization", label:"Organization", type:"text"},
+                {name:"role", label:"Role", type:"text"},
+                {name:"startedAt", label:"Started At", type:"text"},
+                {name:"endedAt", label:"Ended At", type:"text"},
+                {name:"description", label:"Description", type:"editor"},
+            ]
+        },
+        awards:{
+            allowedFields:[
+                {name:"title", label:"Title", type:"text"},
+                {name:"awarder", label:"Awarder", type:"text"},
+                {name:"date", label:"Date", type:"text"},
+                {name:"summary", label:"Summary", type:"editor"},
+            ]
         }
     }
 }

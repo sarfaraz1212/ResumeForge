@@ -4,20 +4,8 @@ import { persist } from 'zustand/middleware';
 const initialState = {
     awards: [
         {
-            title: "General English Certification Test — 80%",
-            awarder: "International Business Management Institute (IBMI)",
-            date: "",
-            summary: "",
-        },
-        {
-            title: "Business English Certification Test — 87.5%",
-            awarder: "myeyelevel.com",
-            date: "",
-            summary: "",
-        },
-        {
-            title: "Advanced English Proficiency Course",
-            awarder: "All 8 levels completed",
+            title: "Award Title",
+            awarder: "Awarder",
             date: "",
             summary: "",
         },
